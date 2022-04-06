@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <ul></ul>
+
+    <script>
+      const getTodoItems = async () => {
+        try {
+          const response = await axios.get(`https://615485ee2473940017efaed3.mockapi.io/assessment`);
+
+          const todoItems = response.data;
+
+          todoItems.forEach((task) => {
+          const list = document.querySelector("ul");
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <label> name : </label> ${task?.name} <label> createdAt:  </label> ${task?.createdAt} <label> avatar:  </label> <img src="${task?.avatar}" />` ;
+          list.insertBefore(li, list.children[0]);
+        });
+
+          return todoItems;
+        } catch (errors) {
+          console.error(errors);
+        }
+        
+      };
+      window.onload = getTodoItems;
+    </script>
+  </body>
+</html>
+
+<style type="text/css">
+  li {
+    padding: 30px
+  }
+
+  label {
+    font-weight: 800;
+    padding-left: 30px;
+  }
+</style>
